@@ -14,6 +14,11 @@ import com.example.ex2.ui.theme.Ex2Theme
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,26 +37,39 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
-    Column(
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Box(
+
+        Image(
+            painter = painterResource(id = R.drawable.cats_small),
+            contentDescription = stringResource(id = R.string.cat_image),
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        Column(
             modifier = Modifier
-                .border(
-                    width = 2.dp,
-                    color = MaterialTheme.colorScheme.primary,
-                    shape = RoundedCornerShape(8.dp)
-                )
                 .padding(16.dp)
+                .fillMaxWidth()
+                .align(Alignment.Center),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            FeetToMetresConverter()
+            Box(
+                modifier = Modifier
+                    .border(
+                        width = 2.dp,
+                        color = MaterialTheme.colorScheme.primary,
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                    .padding(16.dp)
+            ) {
+                FeetToMetresConverter()
+            }
         }
     }
 }
-
 @Composable
 fun FeetToMetresConverter() {
     var feetText by remember { mutableStateOf("") }
